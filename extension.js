@@ -23,12 +23,10 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
         this._openPreferences = openPreferences;
         this._session = this._createSession();
 
-        // Create box for panel button
         this._box = new St.BoxLayout({
             style_class: 'panel-status-menu-box',
         });
 
-        // Add Claude icon
         const iconPath = GLib.build_filenamev([this._extensionPath, 'claude-icon-22.png']);
         const gicon = Gio.icon_new_for_string(iconPath);
         this._icon = new St.Icon({
@@ -38,7 +36,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
         });
         this._box.add_child(this._icon);
 
-        // Add progress bar (for bar mode)
         this._panelProgressBg = new St.Widget({
             style_class: 'claude-panel-progress-bg',
             y_align: Clutter.ActorAlign.CENTER,
@@ -49,7 +46,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
         this._panelProgressBg.add_child(this._panelProgressBar);
         this._box.add_child(this._panelProgressBg);
 
-        // Add usage label (after progress bar)
         this._label = new St.Label({
             text: '...',
             y_align: Clutter.ActorAlign.CENTER,
@@ -59,15 +55,12 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
 
         this.add_child(this._box);
 
-        // Create menu items
         this._createMenu();
 
-        // Update display mode, icon visibility, and icon style
         this._updateDisplayMode();
         this._updateIconVisibility();
         this._updateIconStyle();
 
-        // Connect settings changes
         this._settingsChangedId = this._settings.connect('changed', (settings, key) => {
             if (key === 'refresh-interval') {
                 this._restartTimer();
@@ -82,7 +75,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
             }
         });
 
-        // Start refresh timer
         this._refreshUsage();
         this._startTimer();
     }
@@ -150,7 +142,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
     }
 
     _createMenu() {
-        // 5-hour usage section
         const fiveHourBox = new St.BoxLayout({
             style_class: 'claude-usage-section',
             vertical: true,
@@ -170,7 +161,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
         fiveHourHeader.add_child(this._fiveHourPercent);
         fiveHourBox.add_child(fiveHourHeader);
 
-        // Progress bar for 5-hour
         const fiveHourProgressBg = new St.Widget({
             style_class: 'claude-progress-bg',
         });
@@ -195,7 +185,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
-        // 7-day usage section
         const sevenDayBox = new St.BoxLayout({
             style_class: 'claude-usage-section',
             vertical: true,
@@ -215,7 +204,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
         sevenDayHeader.add_child(this._sevenDayPercent);
         sevenDayBox.add_child(sevenDayHeader);
 
-        // Progress bar for 7-day
         const sevenDayProgressBg = new St.Widget({
             style_class: 'claude-progress-bg',
         });
@@ -240,7 +228,6 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
-        // Settings menu item
         const settingsItem = new PopupMenu.PopupMenuItem('Settings');
         settingsItem.connect('activate', () => {
             this._openPreferences();
@@ -340,21 +327,16 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
         const fiveHour = data.five_hour?.utilization ?? 0;
         const sevenDay = data.seven_day?.utilization ?? 0;
 
-        // Update panel label with 5-hour usage (text mode)
         this._label.set_text(`${Math.round(fiveHour)}%`);
 
-        // Update panel progress bar (bar mode)
         this._updatePanelProgressBar(fiveHour);
 
-        // Update 5-hour section
         this._fiveHourPercent.set_text(`${fiveHour.toFixed(1)}%`);
         this._updateProgressBar(this._fiveHourProgressBar, fiveHour);
 
-        // Update 7-day section
         this._sevenDayPercent.set_text(`${sevenDay.toFixed(1)}%`);
         this._updateProgressBar(this._sevenDayProgressBar, sevenDay);
 
-        // Update reset times
         if (data.five_hour?.resets_at) {
             this._fiveHourResetLabel.set_text(
                 `Resets in ${this._formatResetTime(data.five_hour.resets_at)}`
@@ -369,19 +351,16 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
     }
 
     _updatePanelProgressBar(usage) {
-        // Panel progress bar background is 50px wide
         const maxWidth = 50;
         const width = Math.round((Math.min(100, Math.max(0, usage)) / 100) * maxWidth);
         this._panelProgressBar.set_width(width);
     }
 
     _updateProgressBar(progressBar, usage) {
-        // Menu progress bar background is 200px wide
         const maxWidth = 200;
         const width = Math.round((Math.min(100, Math.max(0, usage)) / 100) * maxWidth);
         progressBar.set_width(width);
 
-        // Update color class
         progressBar.remove_style_class_name('usage-low');
         progressBar.remove_style_class_name('usage-medium');
         progressBar.remove_style_class_name('usage-high');

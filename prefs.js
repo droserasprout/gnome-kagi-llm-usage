@@ -20,7 +20,6 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
         });
         page.add(generalGroup);
 
-        // Refresh interval setting
         const refreshRow = new Adw.SpinRow({
             title: 'Refresh Interval',
             subtitle: 'How often to refresh usage data (in seconds)',
@@ -40,7 +39,6 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
         );
         generalGroup.add(refreshRow);
 
-        // Display mode setting
         const displayGroup = new Adw.PreferencesGroup({
             title: 'Panel Display',
             description: 'Configure how usage is shown in the top panel',
@@ -70,7 +68,6 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
 
         displayGroup.add(displayModeRow);
 
-        // Icon style setting
         const iconStyleRow = new Adw.ComboRow({
             title: 'Icon Style',
             subtitle: 'Use a color or monochrome icon in the panel',
@@ -91,7 +88,6 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
 
         displayGroup.add(iconStyleRow);
 
-        // Show icon setting
         const showIconRow = new Adw.SwitchRow({
             title: 'Show Icon',
             subtitle: 'Display the Claude icon in the top bar',
@@ -104,14 +100,12 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
         );
         displayGroup.add(showIconRow);
 
-        // Network group
         const networkGroup = new Adw.PreferencesGroup({
             title: 'Network',
             description: 'Configure network settings',
         });
         page.add(networkGroup);
 
-        // Proxy setting
         const proxyRow = new Adw.EntryRow({
             title: 'Proxy URL',
             show_apply_button: true,
