@@ -103,5 +103,32 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
             Gio.SettingsBindFlags.DEFAULT
         );
         displayGroup.add(showIconRow);
+
+        // Network group
+        const networkGroup = new Adw.PreferencesGroup({
+            title: 'Network',
+            description: 'Configure network settings',
+        });
+        page.add(networkGroup);
+
+        // Proxy setting
+        const proxyRow = new Adw.EntryRow({
+            title: 'Proxy URL',
+            show_apply_button: true,
+        });
+        proxyRow.set_text(settings.get_string('proxy-url'));
+        proxyRow.connect('apply', () => {
+            settings.set_string('proxy-url', proxyRow.get_text());
+        });
+        networkGroup.add(proxyRow);
+
+        const proxyHint = new Gtk.Label({
+            label: 'Example: http://localhost:11809 (leave empty for no proxy)',
+            xalign: 0,
+            css_classes: ['dim-label', 'caption'],
+            margin_start: 12,
+            margin_top: 4,
+        });
+        networkGroup.add(proxyHint);
     }
 }
