@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="claude-usage">
-  <schema id="org.gnome.shell.extensions.claude-usage" path="/org/gnome/shell/extensions/claude-usage/">
+<schemalist gettext-domain="claude-code-usage">
+  <schema id="org.gnome.shell.extensions.claude-code-usage" path="/org/gnome/shell/extensions/claude-code-usage/">
     <key name="refresh-interval" type="i">
       <default>300</default>
       <summary>Refresh interval</summary>
@@ -10,6 +10,11 @@
       <default>'text'</default>
       <summary>Display mode</summary>
       <description>How to display usage in the panel: 'text' for percentage text, 'bar' for a progress bar, or 'both' for both</description>
+    </key>
+    <key name="icon-style" type="s">
+      <default>'color'</default>
+      <summary>Icon style</summary>
+      <description>Icon style: 'color' for the original colored icon, 'monochrome' for a desaturated monochrome icon</description>
     </key>
     <key name="show-icon" type="b">
       <default>true</default>

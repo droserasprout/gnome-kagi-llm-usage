@@ -70,6 +70,27 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
 
         displayGroup.add(displayModeRow);
 
+        // Icon style setting
+        const iconStyleRow = new Adw.ComboRow({
+            title: 'Icon Style',
+            subtitle: 'Use a color or monochrome icon in the panel',
+        });
+
+        const iconStyleModel = new Gtk.StringList();
+        iconStyleModel.append('Color');
+        iconStyleModel.append('Monochrome');
+        iconStyleRow.set_model(iconStyleModel);
+
+        const currentStyle = settings.get_string('icon-style');
+        iconStyleRow.set_selected(currentStyle === 'monochrome' ? 1 : 0);
+
+        iconStyleRow.connect('notify::selected', () => {
+            const selected = iconStyleRow.get_selected();
+            settings.set_string('icon-style', selected === 1 ? 'monochrome' : 'color');
+        });
+
+        displayGroup.add(iconStyleRow);
+
         // Show icon setting
         const showIconRow = new Adw.SwitchRow({
             title: 'Show Icon',

@@ -24,8 +24,8 @@ The extension is distributed on *extensions.gnome.org* here : [link](https://ext
 
 ```bash
 git clone https://github.com/Haletran/claude-usage-extension
-cp -r claude-usage-extension ~/.local/share/gnome-shell/extensions/claude-usage@haletran.com 
-cd ~/.local/share/gnome-shell/extensions/claude-usage@haletran.com/schemas                                                                                                                                      
+cp -r claude-usage-extension ~/.local/share/gnome-shell/extensions/claude-code-usage@haletran.com 
+cd ~/.local/share/gnome-shell/extensions/claude-code-usage@haletran.com/schemas                                                                                                                                        
 glib-compile-schemas .
 ## Restart Gnome Shell with Alt + F2 type r or logout
 ## Then enable the extension
