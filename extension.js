@@ -62,9 +62,10 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
         // Create menu items
         this._createMenu();
 
-        // Update display mode and icon visibility
+        // Update display mode, icon visibility, and icon style
         this._updateDisplayMode();
         this._updateIconVisibility();
+        this._updateIconStyle();
 
         // Connect settings changes
         this._settingsChangedId = this._settings.connect('changed', (settings, key) => {
@@ -74,6 +75,8 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
                 this._updateDisplayMode();
             } else if (key === 'show-icon') {
                 this._updateIconVisibility();
+            } else if (key === 'icon-style') {
+                this._updateIconStyle();
             }
         });
 
@@ -105,6 +108,23 @@ class ClaudeUsageIndicator extends PanelMenu.Button {
             this._icon.show();
         } else {
             this._icon.hide();
+        }
+    }
+
+    _updateIconStyle() {
+        const style = this._settings.get_string('icon-style');
+        const desatName = 'monochrome-desaturate';
+        const brightName = 'monochrome-brightness';
+        const hasEffect = this._icon.get_effect(desatName) !== null;
+
+        if (style === 'monochrome' && !hasEffect) {
+            this._icon.add_effect(new Clutter.DesaturateEffect({factor: 1.0, name: desatName}));
+            const brightnessEffect = new Clutter.BrightnessContrastEffect({name: brightName});
+            brightnessEffect.set_brightness_full(0.6, 0.6, 0.6);
+            this._icon.add_effect(brightnessEffect);
+        } else if (style !== 'monochrome' && hasEffect) {
+            this._icon.remove_effect_by_name(desatName);
+            this._icon.remove_effect_by_name(brightName);
         }
     }
 
