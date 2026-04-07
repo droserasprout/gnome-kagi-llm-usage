@@ -1,32 +1,33 @@
-# Claude Code usage extension
-![GNOME Shell 46+](https://img.shields.io/badge/GNOME%20Shell-46%2B-blue)   
+# Kagi Usage
 
-A GNOME Shell extension that displays your Claude Code API usage percentage in the top panel. 
+![GNOME Shell 46+](https://img.shields.io/badge/GNOME%20Shell-46%2B-blue)
 
-## Features                                                                                                                                                                                                      
-                                                                                                                                                                                                                   
-- **Real-time usage monitoring** - View your 5-hour and 7-day Claude Code usage                                                                                                                                  
-- **Settings menu*** - Change the layout or the refresh time                                                                                                                                              
-                                                                                                                                                                                                            
-## Requirements                                                                                                                                                                                                  
-                                                                                                                                                                                                                   
-- GNOME Shell 48 or later                                                                                                                                                                                        
-- Claude Code installed and authenticated (`~/.claude/.credentials.json`)   
+A GNOME Shell extension that displays your [Kagi](https://kagi.com) billing usage in the top panel. Based on [claude-usage-extension](https://github.com/Haletran/claude-usage-extension) by [Baptiste-Pasquier](https://github.com/Haletran).
 
-## Installation                                                                                                                                                                                                  
+## Features
 
-### Automatic
+- Real-time Kagi billing usage monitoring (scraped from the billing page)
+- Multiple display modes: text percentage, progress bar, or both
+- Billing cycle timeline with renewal countdown
+- Color/monochrome icon option
+- HTTP proxy support
 
-The extension is distributed on *extensions.gnome.org* here : [link](https://extensions.gnome.org/extension/9231/claude-code-usage/)
-
+## Installation
 
 ### Manual
 
 ```bash
-git clone https://github.com/Haletran/claude-usage-extension
-cp -r claude-usage-extension ~/.local/share/gnome-shell/extensions/claude-code-usage@haletran.com 
-cd ~/.local/share/gnome-shell/extensions/claude-code-usage@haletran.com/schemas                                                                                                                                        
-glib-compile-schemas .
-## Restart Gnome Shell with Alt + F2 type r or logout
-## Then enable the extension
+git clone https://github.com/droserasprout/kagi-usage-extension
+cd kagi-usage-extension
+make install
 ```
+
+### Configuration
+
+1. Open the extension settings
+2. Paste your Kagi session link (e.g. `https://kagi.com/search?token=TOKEN&q=%s`)
+3. The extension extracts the token and fetches billing data from `https://kagi.com/settings/billing`
+
+## Credits
+
+Original extension by [Baptiste-Pasquier](https://github.com/Haletran) ([claude-usage-extension](https://github.com/Haletran/claude-usage-extension)).

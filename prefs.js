@@ -4,28 +4,47 @@ import Gio from 'gi://Gio';
 
 import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-export default class ClaudeUsagePreferences extends ExtensionPreferences {
+export default class KagiUsagePreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         const settings = this.getSettings();
 
         const page = new Adw.PreferencesPage({
-            title: 'Claude Usage Settings',
+            title: 'Kagi Usage Settings',
             icon_name: 'preferences-system-symbolic',
         });
         window.add(page);
 
         const generalGroup = new Adw.PreferencesGroup({
             title: 'General',
-            description: 'Configure the Claude Usage extension',
+            description: 'Configure the Kagi Usage extension',
         });
         page.add(generalGroup);
+
+        const sessionLinkRow = new Adw.EntryRow({
+            title: 'Session Link',
+            show_apply_button: true,
+        });
+        sessionLinkRow.set_text(settings.get_string('session-link'));
+        sessionLinkRow.connect('apply', () => {
+            settings.set_string('session-link', sessionLinkRow.get_text());
+        });
+        generalGroup.add(sessionLinkRow);
+
+        const sessionLinkHint = new Gtk.Label({
+            label: 'Your Kagi session link (e.g. https://kagi.com/search?token=...&q=%s)',
+            xalign: 0,
+            css_classes: ['dim-label', 'caption'],
+            margin_start: 12,
+            margin_top: 4,
+        });
+        generalGroup.add(sessionLinkHint);
 
         const refreshRow = new Adw.SpinRow({
             title: 'Refresh Interval',
             subtitle: 'How often to refresh usage data (in seconds)',
             adjustment: new Gtk.Adjustment({
-                lower: 10,
-                upper: 600,
+                lower: 10, // 10 seconds
+                upper: 24*60*60, // 24 hours
                 step_increment: 10,
                 page_increment: 60,
                 value: settings.get_int('refresh-interval'),
@@ -90,7 +109,7 @@ export default class ClaudeUsagePreferences extends ExtensionPreferences {
 
         const showIconRow = new Adw.SwitchRow({
             title: 'Show Icon',
-            subtitle: 'Display the Claude icon in the top bar',
+            subtitle: 'Display the Kagi icon in the top bar',
         });
         settings.bind(
             'show-icon',

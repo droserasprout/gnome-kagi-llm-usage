@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="claude-code-usage">
-  <schema id="org.gnome.shell.extensions.claude-code-usage" path="/org/gnome/shell/extensions/claude-code-usage/">
+<schemalist gettext-domain="kagi-usage">
+  <schema id="org.gnome.shell.extensions.kagi-usage" path="/org/gnome/shell/extensions/kagi-usage/">
+    <key name="session-link" type="s">
+      <default>''</default>
+      <summary>Kagi session link</summary>
+      <description>Your Kagi private session link (e.g. https://kagi.com/search?token=...&amp;q=%s)</description>
+    </key>
     <key name="refresh-interval" type="i">
       <default>300</default>
       <summary>Refresh interval</summary>
@@ -19,7 +24,7 @@
     <key name="show-icon" type="b">
       <default>true</default>
       <summary>Show icon</summary>
-      <description>Whether to show the Claude icon in the top bar</description>
+      <description>Whether to show the Kagi icon in the top bar</description>
     </key>
     <key name="proxy-url" type="s">
       <default>''</default>
