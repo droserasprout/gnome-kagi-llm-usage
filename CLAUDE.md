@@ -22,7 +22,7 @@ make logs       # View extension logs
 
 - **`extension.js`** -- Main extension logic. `KagiUsageExtension` (GNOME Extension class) creates a `KagiUsageIndicator` (subclass of `PanelMenu.Button`) and adds it to the shell panel.
 - **`prefs.js`** -- Preferences UI using `Adw`/`Gtk`. Loaded in a separate process by GNOME when user opens settings.
-- **`schemas/`** -- GSettings schema defining persisted settings: `session-link`, `refresh-interval`, `display-mode`, `icon-style`, `show-icon`, `proxy-url`.
+- **`schemas/`** -- GSettings schema defining persisted settings: `session-link`, `refresh-interval`, `display-mode`, `show-icon`, `proxy-url`.
 - **`stylesheet.css`** -- CSS for panel widget styling (progress bar colors, layout).
 
 ## Key Implementation Details

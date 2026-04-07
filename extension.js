@@ -59,8 +59,6 @@ class KagiUsageIndicator extends PanelMenu.Button {
 
         this._updateDisplayMode();
         this._updateIconVisibility();
-        this._updateIconStyle();
-
         this._settingsChangedId = this._settings.connect('changed', (settings, key) => {
             if (key === 'refresh-interval') {
                 this._restartTimer();
@@ -70,8 +68,6 @@ class KagiUsageIndicator extends PanelMenu.Button {
                 this._updateIconVisibility();
             } else if (key === 'proxy-url') {
                 this._recreateSession();
-            } else if (key === 'icon-style') {
-                this._updateIconStyle();
             } else if (key === 'session-link') {
                 this._refreshUsage();
             }
@@ -126,23 +122,6 @@ class KagiUsageIndicator extends PanelMenu.Button {
         this._session = this._createSession();
         this._refreshUsage();
 	}
-    _updateIconStyle() {
-        const style = this._settings.get_string('icon-style');
-        const desatName = 'monochrome-desaturate';
-        const brightName = 'monochrome-brightness';
-        const hasEffect = this._icon.get_effect(desatName) !== null;
-
-        if (style === 'monochrome' && !hasEffect) {
-            this._icon.add_effect(new Clutter.DesaturateEffect({factor: 1.0, name: desatName}));
-            const brightnessEffect = new Clutter.BrightnessContrastEffect({name: brightName});
-            brightnessEffect.set_brightness_full(1, 1, 1);
-            this._icon.add_effect(brightnessEffect);
-        } else if (style !== 'monochrome' && hasEffect) {
-            this._icon.remove_effect_by_name(desatName);
-            this._icon.remove_effect_by_name(brightName);
-        }
-    }
-
     _createMenu() {
         const billingBox = new St.BoxLayout({
             style_class: 'kagi-usage-section',
