@@ -1,4 +1,4 @@
-UUID    := github@drsr.io
+UUID    := kagi-llm-usage@drsr.io
 DESTDIR := $(HOME)/.local/share/gnome-shell/extensions/$(UUID)
 
 .PHONY: install uninstall enable disable reload restart nested logs

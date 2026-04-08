@@ -16,7 +16,7 @@ const BILLING_URL = 'https://kagi.com/settings/billing';
 const KagiUsageIndicator = GObject.registerClass(
 class KagiUsageIndicator extends PanelMenu.Button {
     _init(extensionPath, settings, openPreferences) {
-        super._init(0.0, 'Kagi Usage Indicator');
+        super._init(0.0, 'Kagi LLM Usage Indicator');
 
         this._extensionPath = extensionPath;
         this._settings = settings;
@@ -185,7 +185,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
         const settingsItem = new PopupMenu.PopupMenuItem('Settings');
         settingsItem.connect('activate', () => {
             Promise.resolve(this._openPreferences()).catch(e => {
-                console.error('Kagi Usage: Failed to open preferences:', e);
+                console.error('Kagi LLM Usage: Failed to open preferences:', e);
             });
         });
         this.menu.addMenuItem(settingsItem);
@@ -228,7 +228,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
             if (!tokenMatch) throw new Error('no token param in session link');
             this._fetchBilling(tokenMatch[1]);
         } catch (e) {
-            console.error('Kagi Usage: Failed to parse session link:', e.message);
+            console.error('Kagi LLM Usage: Failed to parse session link:', e.message);
             this._label.set_text('Error');
             this._billingPercent.set_text('Invalid session link');
             this._billingDetail.set_text('—');
@@ -267,7 +267,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
 
                     this._updateDisplay(data);
                 } catch (e) {
-                    console.error('Kagi Usage: Failed to fetch billing:', e.message);
+                    console.error('Kagi LLM Usage: Failed to fetch billing:', e.message);
                     this._label.set_text('Error');
                 }
             }

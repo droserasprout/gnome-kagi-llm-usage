@@ -1,12 +1,12 @@
-# Kagi Usage
+# Kagi LLM Usage
 
 ![GNOME Shell 46+](https://img.shields.io/badge/GNOME%20Shell-46%2B-blue)
 
-A GNOME Shell extension that displays your [Kagi](https://kagi.com) billing usage in the top panel. Requires a Kagi session token (see [Configuration](#configuration)). Based on [claude-usage-extension](https://github.com/Haletran/claude-usage-extension) by [Baptiste-Pasquier](https://github.com/Haletran).
+A GNOME Shell extension that displays your [Kagi](https://kagi.com) billing usage in the top panel. Requires a Kagi session token (see [Configuration](#configuration)).
 
 ## Features
 
-- Real-time Kagi billing usage monitoring (scraped from the billing page)
+- Kagi LLM usage monitoring (scraped from the billing page)
 - Multiple display modes: text percentage, progress bar, or both
 - Billing cycle timeline with renewal countdown
 - HTTP proxy support
@@ -30,3 +30,5 @@ make install
 ## Credits
 
 Original extension by [Baptiste-Pasquier](https://github.com/Haletran) ([claude-usage-extension](https://github.com/Haletran/claude-usage-extension)).
+
+License: [MIT](LICENSE)

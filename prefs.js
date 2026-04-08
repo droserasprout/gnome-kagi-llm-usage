@@ -9,14 +9,14 @@ export default class KagiUsagePreferences extends ExtensionPreferences {
         const settings = this.getSettings();
 
         const page = new Adw.PreferencesPage({
-            title: 'Kagi Usage Settings',
+            title: 'Kagi LLM Usage Settings',
             icon_name: 'preferences-system-symbolic',
         });
         window.add(page);
 
         const generalGroup = new Adw.PreferencesGroup({
             title: 'General',
-            description: 'Configure the Kagi Usage extension',
+            description: 'Configure the Kagi LLM Usage extension',
         });
         page.add(generalGroup);
 
