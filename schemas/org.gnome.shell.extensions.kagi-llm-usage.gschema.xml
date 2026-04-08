@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="kagi-usage">
-  <schema id="org.gnome.shell.extensions.kagi-usage" path="/org/gnome/shell/extensions/kagi-usage/">
+<schemalist gettext-domain="kagi-llm-usage">
+  <schema id="org.gnome.shell.extensions.kagi-llm-usage" path="/org/gnome/shell/extensions/kagi-llm-usage/">
     <key name="session-link" type="s">
       <default>''</default>
       <summary>Kagi session link</summary>

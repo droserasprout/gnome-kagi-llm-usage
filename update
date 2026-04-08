@@ -2,9 +2,9 @@
 
 cd ..
 
-if [ -d kagi-usage-extension ]; then
+if [ -d kagi-llm-usage-extension ]; then
 	rm -rf ~/.local/share/gnome-shell/extensions/kagi-llm-usage@drsr.io
-	cp -r kagi-usage-extension ~/.local/share/gnome-shell/extensions/kagi-llm-usage@drsr.io 
+	cp -r kagi-llm-usage-extension ~/.local/share/gnome-shell/extensions/kagi-llm-usage@drsr.io 
 	cd ~/.local/share/gnome-shell/extensions/kagi-llm-usage@drsr.io/schemas
 	glib-compile-schemas .
 	gnome-session-quit --no-prompt

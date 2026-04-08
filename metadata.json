@@ -1,10 +1,10 @@
 {
   "name": "Kagi LLM Usage",
-  "description": "Display Kagi billing usage in the top panel. This extension is not affiliated with Kagi.",
+  "description": "Display Kagi LLM usage in the top panel.",
   "uuid": "kagi-llm-usage@drsr.io",
   "shell-version": ["46", "47", "48", "49"],
-  "url": "https://github.com/droserasprout/kagi-usage-extension",
-  "settings-schema": "org.gnome.shell.extensions.kagi-usage",
+  "url": "https://github.com/droserasprout/gnome-kagi-llm-usage",
+  "settings-schema": "org.gnome.shell.extensions.kagi-llm-usage",
   "donations": {
     "github": "Haletran"
   },

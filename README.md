@@ -16,8 +16,8 @@ A GNOME Shell extension that displays your [Kagi](https://kagi.com) billing usag
 ### Manual
 
 ```bash
-git clone https://github.com/droserasprout/kagi-usage-extension
-cd kagi-usage-extension
+git clone git@github.com:droserasprout/gnome-kagi-llm-usage.git
+cd gnome-kagi-llm-usage
 make install
 ```
 
