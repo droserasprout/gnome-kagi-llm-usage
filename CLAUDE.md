@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Overview
 
-A GNOME Shell extension that displays Kagi billing usage in the top panel. Written in GJS (GNOME JavaScript), using GNOME libraries via GObject Introspection. Based on [claude-usage-extension](https://github.com/Haletran/claude-usage-extension) by Baptiste-Pasquier.
+A GNOME Shell extension that displays Kagi LLM usage in the top panel. Written in GJS (GNOME JavaScript), using GNOME libraries via GObject Introspection. Based on [claude-usage-extension](https://github.com/Haletran/claude-usage-extension) by Baptiste-Pasquier.
 
 ## Development Commands
 
@@ -30,5 +30,5 @@ make logs       # View extension logs
 - The user provides a Kagi session link (e.g. `https://kagi.com/search?token=TOKEN&q=%s`) in settings; the `token` param is extracted and sent as `Cookie: kagi_session=TOKEN` to `https://kagi.com/settings/billing`.
 - Billing data is scraped from the HTML response using a regex against `<div class="billing_box_count_num"><span>$SPENT</span>/TOTAL</div>`.
 - The panel indicator supports three display modes: `text` (percentage label), `bar` (mini progress bar), `both`.
-- Progress bar color is driven by CSS classes: `usage-low` / `usage-medium` / `usage-high` / `usage-critical` (thresholds: 40/70/90%).
+- The billing cycle timeline shows a tick on the progress bar indicating current position between last payment and next renewal dates.
 - Schema changes require recompiling with `glib-compile-schemas` and reloading the shell.

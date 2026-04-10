@@ -121,7 +121,8 @@ class KagiUsageIndicator extends PanelMenu.Button {
         }
         this._session = this._createSession();
         this._refreshUsage();
-	}
+    }
+
     _createMenu() {
         const billingBox = new St.BoxLayout({
             style_class: 'kagi-usage-section',
@@ -150,7 +151,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
         barBg.set_position(0, 0);
         barWrapper.add_child(barBg);
 
-        this._spendingFill = new St.Widget({ style_class: 'kagi-progress-bar usage-low' });
+        this._spendingFill = new St.Widget({ style_class: 'kagi-progress-bar' });
         this._spendingFill.set_size(0, 8);
         this._spendingFill.set_position(0, 0);
         barWrapper.add_child(this._spendingFill);
@@ -192,7 +193,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
     }
 
     _startTimer() {
-        const interval = this._settings.get_int('refresh-interval');
+        const interval = this._settings.get_int('refresh-interval') * 60; // convert minutes to seconds
         this._timerId = GLib.timeout_add_seconds(
             GLib.PRIORITY_DEFAULT,
             interval,
@@ -321,7 +322,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
         this._updatePanelProgressBar(data.percent);
         this._billingPercent.set_text(`${data.percent.toFixed(1)}%`);
         this._billingDetail.set_text(`$${data.spent.toFixed(2)} / $${data.total.toFixed(2)}`);
-        this._spendingFill.set_width(Math.round((Math.min(100, data.percent) / 100) * 200));
+        this._updateProgressBar(this._spendingFill, data.percent);
 
         if (data.nextRenewal && data.lastPaymentDate) {
             const now = new Date();
@@ -332,7 +333,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
             const timelinePercent = totalMs > 0
                 ? Math.min(100, Math.max(0, (elapsedMs / totalMs) * 100))
                 : 0;
-            const tickX = Math.round((timelinePercent / 100) * 200) - 1;
+            const tickX = Math.max(0, Math.round((timelinePercent / 100) * 200) - 1);
             this._timelineTick.set_position(tickX, 0);
             this._timelineResetLabel.set_text(
                 `Resets in ${this._formatResetTime(data.nextRenewal)}`
@@ -352,21 +353,6 @@ class KagiUsageIndicator extends PanelMenu.Button {
         const maxWidth = 200;
         const width = Math.round((Math.min(100, Math.max(0, usage)) / 100) * maxWidth);
         progressBar.set_width(width);
-
-        progressBar.remove_style_class_name('usage-low');
-        progressBar.remove_style_class_name('usage-medium');
-        progressBar.remove_style_class_name('usage-high');
-        progressBar.remove_style_class_name('usage-critical');
-
-        if (usage >= 90) {
-            progressBar.add_style_class_name('usage-critical');
-        } else if (usage >= 70) {
-            progressBar.add_style_class_name('usage-high');
-        } else if (usage >= 40) {
-            progressBar.add_style_class_name('usage-medium');
-        } else {
-            progressBar.add_style_class_name('usage-low');
-        }
     }
 
     destroy() {

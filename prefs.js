@@ -21,7 +21,7 @@ export default class KagiUsagePreferences extends ExtensionPreferences {
         page.add(generalGroup);
 
         const sessionLinkRow = new Adw.EntryRow({
-            title: 'Session Link',
+            title: 'Session link',
             show_apply_button: true,
         });
         sessionLinkRow.set_text(settings.get_string('session-link'));
@@ -30,23 +30,15 @@ export default class KagiUsagePreferences extends ExtensionPreferences {
         });
         generalGroup.add(sessionLinkRow);
 
-        const sessionLinkHint = new Gtk.Label({
-            label: 'Your Kagi session link (e.g. https://kagi.com/search?token=...&q=%s)',
-            xalign: 0,
-            css_classes: ['dim-label', 'caption'],
-            margin_start: 12,
-            margin_top: 4,
-        });
-        generalGroup.add(sessionLinkHint);
-
         const refreshRow = new Adw.SpinRow({
             title: 'Refresh Interval',
-            subtitle: 'How often to refresh usage data (in seconds)',
+            subtitle: 'How often to refresh usage data (in minutes)',
             adjustment: new Gtk.Adjustment({
-                lower: 10, // 10 seconds
-                upper: 24*60*60, // 24 hours
-                step_increment: 10,
-                page_increment: 60,
+                // default 10 minutes
+                lower: 1, // 1 minute
+                upper: 24*60, // 24 hours
+                step_increment: 1,
+                page_increment: 10,
                 value: settings.get_int('refresh-interval'),
             }),
         });

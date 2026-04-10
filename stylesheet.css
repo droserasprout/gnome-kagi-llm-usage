@@ -55,23 +55,9 @@
     height: 8px;
     border-radius: 4px;
     transition: width 300ms ease-out;
-}
-
-.kagi-progress-bar.usage-low {
     background-color: #22c55e;
 }
 
-.kagi-progress-bar.usage-medium {
-    background-color: #eab308;
-}
-
-.kagi-progress-bar.usage-high {
-    background-color: #f97316;
-}
-
-.kagi-progress-bar.usage-critical {
-    background-color: #ef4444;
-}
 
 /* Reset label styles */
 .kagi-reset-label {
@@ -79,41 +65,7 @@
     color: #a0a0a0;
 }
 
-/* Timeline bar styles */
-.kagi-timeline-bg {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
-}
-
 .kagi-timeline-tick {
     background-color: #ffffff;
     border-radius: 1px;
-}
-
-/* Footer styles */
-.kagi-footer-box {
-    padding: 6px 0;
-    spacing: 12px;
-}
-
-.kagi-refresh-button {
-    padding: 4px 12px;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    font-size: 12px;
-}
-
-.kagi-refresh-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.kagi-refresh-button:active {
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-.kagi-last-updated-label {
-    font-size: 10px;
-    font-style: italic;
-    color: #808080;
 }

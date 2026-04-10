@@ -7,9 +7,9 @@
       <description>Your Kagi private session link (e.g. https://kagi.com/search?token=...&amp;q=%s)</description>
     </key>
     <key name="refresh-interval" type="i">
-      <default>300</default>
+      <default>10</default>
       <summary>Refresh interval</summary>
-      <description>How often to refresh usage data in seconds</description>
+      <description>How often to refresh usage data in minutes</description>
     </key>
     <key name="display-mode" type="s">
       <default>'text'</default>
