@@ -5,8 +5,5 @@
   "shell-version": ["46", "47", "48", "49"],
   "url": "https://github.com/droserasprout/gnome-kagi-llm-usage",
   "settings-schema": "org.gnome.shell.extensions.kagi-llm-usage",
-  "donations": {
-    "github": "Haletran"
-  },
   "version": 3
 }
