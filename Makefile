@@ -1,7 +1,7 @@
 UUID    := kagi-llm-usage@drsr.io
 DESTDIR := $(HOME)/.local/share/gnome-shell/extensions/$(UUID)
 
-.PHONY: install uninstall enable disable reload restart nested logs
+.PHONY: install uninstall enable disable reload restart nested logs zip
 
 install:
 	rsync -a --exclude='.git' --exclude='Makefile' . $(DESTDIR)/
@@ -27,3 +27,7 @@ nested:
 
 logs:
 	journalctl -f /usr/bin/gnome-shell
+
+zip:
+	rm -f $(UUID).zip
+	zip -r $(UUID).zip extension.js prefs.js stylesheet.css metadata.json LICENSE kagi-icon-32.png schemas/

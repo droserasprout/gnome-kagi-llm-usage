@@ -9,7 +9,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
-import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 const BILLING_URL = 'https://kagi.com/settings/billing';
 
@@ -21,6 +21,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
         this._extensionPath = extensionPath;
         this._settings = settings;
         this._openPreferences = openPreferences;
+        this._cancellable = new Gio.Cancellable();
         this._session = this._createSession();
 
         this._box = new St.BoxLayout({
@@ -116,6 +117,8 @@ class KagiUsageIndicator extends PanelMenu.Button {
     }
 
     _recreateSession() {
+        this._cancellable.cancel();
+        this._cancellable = new Gio.Cancellable();
         if (this._session) {
             this._session.abort();
         }
@@ -243,10 +246,13 @@ class KagiUsageIndicator extends PanelMenu.Button {
         this._session.send_and_read_async(
             message,
             GLib.PRIORITY_DEFAULT,
-            null,
+            this._cancellable,
             (session, result) => {
                 try {
                     const bytes = session.send_and_read_finish(result);
+
+                    if (this._cancellable.is_cancelled())
+                        return;
 
                     if (message.status_code !== 200) {
                         this._label.set_text('Error');
@@ -268,6 +274,8 @@ class KagiUsageIndicator extends PanelMenu.Button {
 
                     this._updateDisplay(data);
                 } catch (e) {
+                    if (this._cancellable.is_cancelled())
+                        return;
                     console.error('Kagi LLM Usage: Failed to fetch billing:', e.message);
                     this._label.set_text('Error');
                 }
@@ -356,6 +364,7 @@ class KagiUsageIndicator extends PanelMenu.Button {
     }
 
     destroy() {
+        this._cancellable.cancel();
         this._stopTimer();
         if (this._session) {
             this._session.abort();
